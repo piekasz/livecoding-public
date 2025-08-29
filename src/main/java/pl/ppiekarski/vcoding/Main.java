@@ -55,7 +55,7 @@ public class Main {
         if (startIndex == -1 && endIndex == -1){
             return true;
         }
-        if (startIndex * endIndex < 0) { // there is start without end or otherwise
+        if (startIndex < 0 || endIndex < 0) { // there is start without end or otherwise
             return false;
         }
         if (startIndex > endIndex) {

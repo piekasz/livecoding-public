@@ -38,32 +38,21 @@ public class Main {
         );
         var starts = startToEnd.keySet();
 
-        // each end has start before  and each start has end after
-        for (Character start : starts) {
-            var isSingleValid = isOneOfThemValid(string, start, startToEnd);
-            if (!isSingleValid){
-                return false;
+        var stack = new ArrayDeque<Character>();
+
+        for (char character : string.toCharArray()) {
+            if (starts.contains(character)) {
+                stack.push(startToEnd.get(character));
+            } else {
+                if (stack.isEmpty() || stack.pop() != character) {
+                    return false;
+                }
             }
         }
-        return true;
-    }
 
-    private boolean isOneOfThemValid(String string, Character start, Map<Character, Character> startToEnd) {
-        var startIndex = string.indexOf(start);
-        var endIndex = string.lastIndexOf(startToEnd.get(start));
-
-        if (startIndex == -1 && endIndex == -1){
-            return true;
-        }
-        if (startIndex < 0 || endIndex < 0) { // there is start without end or otherwise
-            return false;
-        }
-        if (startIndex > endIndex) {
-            return false;
-        }
-        return isValid(string.substring(startIndex + 1, endIndex));
+        return stack.isEmpty();
     }
-    /*
+/*
     Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
 An input string is valid if:

@@ -10,16 +10,16 @@ public class Main {
 
     ArrayList<Integer> solution(int[] inputArray) {
         var n = inputArray.length;
-        var bits = new HashSet<Integer>();
+        var bits = new BitSet(n);
 
         for (int i : inputArray) {
-            bits.add(i);
+            bits.set(i);
         }
         // all - bits = result
         var result = new ArrayList<Integer>();
 
         for (var i = 1; i <= n; i++) {
-            if (!bits.contains(i)) {
+            if (!bits.get(i)) {
                 result.add(i);
             }
         }
